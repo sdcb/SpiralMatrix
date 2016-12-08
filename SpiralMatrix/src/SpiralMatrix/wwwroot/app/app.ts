@@ -106,8 +106,11 @@
         }
 
         init() {
-            for (let i = 0; i < this.size; ++i) {
-                this.setAt(i, i, new ImageItem(i, i, `.\\img\\${i + 1}.jpg`));
+            for (var i = 0; i < this.size; ++i) {
+                for (var j = 0; j < this.size; ++j) {
+                    let id = i * this.size + j + 1;
+                    this.setAt(i, j, new ImageItem(i, j, `.\\img\\${id % 54 + 1}.jpg`));
+                }
             }
         }
 
@@ -117,7 +120,7 @@
     }
 
     class Renderer extends RendererBase {
-        system = new System(5);
+        system = new System(13);
 
         size() {
             return Math.min(this.canvas.width(), this.canvas.height()) - 15;
@@ -126,7 +129,7 @@
         render(time: number) {
             this.canvas.setTransform(float3x2.identity()
                 .multiply(this.centerTransform()));
-            this.renderGrid();
+            //this.renderGrid();
             this.renderImages();
         }
 
